@@ -1,14 +1,17 @@
 var wordsPerMinute = 230;
 
-var getTimeToRead = function () {
-  var paragraphTextArray = [].slice.call(document.querySelectorAll('p'));
+$.fn.getTimeToRead = function () {
+  var paragraphTextArray = [].slice.call(this.find('p'));
   var totalText = "";
   paragraphTextArray.forEach(function(paragraph) {
     totalText += paragraph.textContent;
   });
   var wordCount = totalText.split(" ").length;
   var totalTime = Math.round(wordCount/wordsPerMinute);
-  document.getElementById('wordCount').innerHTML = document.getElementById('wordCount').innerHTML + totalTime + " minutes.";
+  return totalTime;
 }
 
-getTimeToRead();
+$( document ).ready(function() {
+  var minutes = $(document).getTimeToRead()
+  $("#wordCount").text("Time to Read: " + minutes + " minutes.");
+});
